@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Funx Evaluator</title>
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+          }
+        
+          /* Style the input and output boxes */
+          .input-output-box {
+            float: left;
+            width: 30%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+          }
+        
+          /* Style the form and input/output boxes */
+          form, .input-output-box {
+            display: flex;
+            flex-direction: column;
+          }
+        
+          /* Style the form fields */
+          label, input, button {
+            margin: 10px 0;
+          }
+        
+          /* Style the input field */
+          input[type="text"] {
+            width: 97%;
+            padding: 10px;
+            font-size: 16px;
+          }
+        
+          /* Style the submit button */
+          button[type="submit"] {
+            width: 100px;
+            height: 40px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin-left: 400px;
+            font-size: 16px;
+            background-color: #fff;
+            color: #333;
+            border: none;
+            cursor: pointer;
+          }
+        
+          /* Style the input/output sections */
+          .input-output-section {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #555;
+            border-radius: 5px;
+          }
+    </style>
+  </head>
+  <body>
+
+    {# Display the last 5 inputs and outputs #}
+    <div class="input-output-box">
+      {% for input, output in inputs_and_outputs %}
+      <div class="input-output-section">
+        <p><strong>Input:</strong> {{ input }}</p>
+        <p><strong>Output:</strong> {{ output }}</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    {# Create the form for entering Funx expressions #}
+    <form action="/evaluate" method="POST">
+      <label for="funx_expression">Enter a Funx expression:</label>
+      <textarea type="text" rows = "10" name="funx_expression" value="{{ funx_expression }}"></textarea>
+      <button type="submit">Evaluar</button>
+    </form>
+
+    <h1>Funcions Declarades</h1>
+    {# Display the defined functions #}
+    <div class="input-output-box">
+      {% for funcName in tfs %}
+        <p><strong> {{ funcName }}</strong>
+        {% for var in tfs[funcName][0]%}
+          {{var}} 
+        {% endfor %}
+        <p> 
+      {% endfor %}
+    </div>
+  </body>
+</html>
